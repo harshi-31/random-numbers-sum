@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .style1 {
+            background-color: pink;
+            color: white;
+            height: 40px;
+            width: 40px;
+            text-align: center;
+            font-size: 30px;
+            font-weight: bold;
+        }
+        button {
+            height: 30px;
+            width: 70px;
+            margin-top: 20px;
+            background-color: black;
+            border-radius: 20px;
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+        }
+        .add {
+            color: black;
+            font-weight: bold;
+            font-size: 25px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div>
+        <button id ="submit">Start</button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" style="border:none" class="add" id ="dia_add"><br>
+    </div>    
+    <div id="inputsContainer">
+        <!-- Inputs will be inserted here by JavaScript -->
+    </div>
+    <script>
+        // Generating inputs dynamically
+        const inputsContainer = document.getElementById("inputsContainer");
+        for (let i = 1; i <= 16; i++) {
+            const input = document.createElement("input");
+            input.type = "text";
+            input.id = "rand" + i;
+            input.className = "style1";
+            inputsContainer.appendChild(input);
+            if (i % 4 === 0) inputsContainer.appendChild(document.createElement("br"));
+        }
+
+        var dia_add = document.getElementById("dia_add");
+        var submit = document.getElementById("submit");
+        submit.addEventListener("click", function() {
+            const values = [];
+            for (let i = 1; i <= 16; i++) {
+                values.push(setRandomValue(i));
+            }
+            dia_add_fun(values);
+        });
+
+        function setRandomValue(index) {
+            const input = document.getElementById("rand" + index);
+            const randomValue = Math.floor(Math.random() * 100) + 1;
+            input.value = randomValue;
+            return randomValue;
+        }
+
+        function dia_add_fun(values) {
+            // Adding the diagonal elements based on their IDs
+            dia_add.value = values[0] + values[5] + values[10] + values[15]; // Indices adjusted for zero-based array
+        }
+    </script>
+</body>
+</html>
